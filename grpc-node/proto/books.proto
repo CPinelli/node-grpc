@@ -1,0 +1,46 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package bookPackage;
+
+service Book {
+  rpc CreateBook(CreateBookRequest) returns (BookItem);
+  rpc GetAllBooks(google.protobuf.Empty) returns (BookItems);
+  rpc GetBook(BookId) returns (BookItem);
+  rpc UpdateBook(UpdateBookRequest) returns (BookItem);
+  rpc DeleteBook(BookId) returns (BookItem);
+}
+
+message CreateBookRequest {
+  string title = 1;
+  string author = 2;
+  string content = 3;
+  Trace trace = 1000;
+}
+
+message UpdateBookRequest {
+  int32 id = 1;
+  optional string title = 2;
+  optional string author = 3;
+  optional string content = 4;
+  Trace trace = 1000;
+}
+
+message BookItem {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+  string content = 4;
+}
+
+message BookItems {
+  repeated BookItem items = 1;
+}
+
+message BookId {
+  int32 id = 1;
+}
+
+message Trace {
+  string traceId = 1;
+}
